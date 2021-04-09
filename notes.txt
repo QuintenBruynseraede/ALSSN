@@ -5,7 +5,8 @@ TODO: what is a whale? Define.
     - https://whale-alert.io/whales: > 10 000 000 usd
 
 TODO: which snapshots are relevant? (https://etherscan.io/chart/tx) 
-    - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]
+    - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]µ
+    - Waarom deze tijdspunten? Staan dan heel hoog? 
 
 
 1. Global Network analysis: 
@@ -20,9 +21,17 @@ Data needed: network (V=addresses,E=txs) at each snapshot
 - N (5-10) snapshots of as many addresses as possible
 Data needed: dataset of (address) -> (balance) at each snapshot
 
-3. Clustering analysis:
+3. Try to link certain trade adresses with their 'name' so that we can determine their group and this could be very useful to determine and understand the clustering in step 4. 
+
+4. Clustering analysis:
 - visualize and find groups
 - Do whales trades among themselves or do they lead to clusters?
 - Is there a difference between whales of different types (finance, exchanges, miners, ...)?
 ? Does this clustering change over time ?
 Data needed: network (V=addresses,E=txs) at each snapshot
+
+
+
+
+
+
