@@ -1,0 +1,28 @@
+Goal: investigate the importance of whales in the ETH network
+
+TODO: what is a whale? Define.
+    - https://blockworks.co/ethereum-whales-gobble-70-of-eth/ -> > 10 000 ETH
+    - https://whale-alert.io/whales: > 10 000 000 usd
+
+TODO: which snapshots are relevant? (https://etherscan.io/chart/tx) 
+    - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]
+
+
+1. Global Network analysis: 
+- Calculate some metrics about the network, then for whales and non-whales 
+    ? Insert percolation here ? [see reading/percolation_analyis_....pdf]
+- Degree distribution, clustering coefficient, degree centrality
+? Do these metrics change over time?
+Data needed: network (V=addresses,E=txs) at each snapshot
+
+2. inequality [see reading/Income_inequality_....pdf]
+- plot Gini/top1% over time
+- N (5-10) snapshots of as many addresses as possible
+Data needed: dataset of (address) -> (balance) at each snapshot
+
+3. Clustering analysis:
+- visualize and find groups
+- Do whales trades among themselves or do they lead to clusters?
+- Is there a difference between whales of different types (finance, exchanges, miners, ...)?
+? Does this clustering change over time ?
+Data needed: network (V=addresses,E=txs) at each snapshot
