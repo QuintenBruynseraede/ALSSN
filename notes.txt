@@ -3,11 +3,12 @@ Goal: investigate the importance of whales in the ETH network
 TODO: what is a whale? Define.
     - https://blockworks.co/ethereum-whales-gobble-70-of-eth/ -> > 10 000 ETH
     - https://whale-alert.io/whales: > 10 000 000 usd
+==> 10 000 ETH
 
 TODO: which snapshots are relevant? (https://etherscan.io/chart/tx) 
     - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]µ
     - Waarom deze tijdspunten? Staan dan heel hoog? 
-
+=> Elke 8 maanden, begin bij Jan17
 
 1. Global Network analysis: 
 - Calculate some metrics about the network, then for whales and non-whales 
