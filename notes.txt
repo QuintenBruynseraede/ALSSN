@@ -6,21 +6,24 @@ TODO: what is a whale? Define.
 ==> 10 000 ETH
 
 TODO: which snapshots are relevant? (https://etherscan.io/chart/tx) 
-    - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]µ
+    - Proposal: start at Jan '17, 1 snapshot each 6 months? [Jan 17, June 17, Jan 18, Jun 18, Jan 19, Jun 19, Jan 20, Jun 20 ,Jan 21]
     - Waarom deze tijdspunten? Staan dan heel hoog? 
-=> Elke 8 maanden, begin bij Jan17
+=> Elke 8 maanden, begin bij Jan17, periode van 1 maand +-
 
 1. Global Network analysis: 
 - Calculate some metrics about the network, then for whales and non-whales 
     ? Insert percolation here ? [see reading/percolation_analyis_....pdf]
 - Degree distribution, clustering coefficient, degree centrality
+- Correlation between indegree/outdegree
 ? Do these metrics change over time?
 Data needed: network (V=addresses,E=txs) at each snapshot
 
+
 2. inequality [see reading/Income_inequality_....pdf]
 - plot Gini/top1% over time
-- N (5-10) snapshots of as many addresses as possible
-Data needed: dataset of (address) -> (balance) at each snapshot
+- 6 snapshots of as many addresses as possible
+- is dit te vergelijken als totale rijkdom of aantal adressen verandert?
+Data needed: dataset of (address) -> (balance) at each snapshot (gemiddelde)
 
 3. Try to link certain trade adresses with their 'name' so that we can determine their group and this could be very useful to determine and understand the clustering in step 4. 
 
@@ -28,7 +31,7 @@ Data needed: dataset of (address) -> (balance) at each snapshot
 - visualize and find groups
 - Do whales trades among themselves or do they lead to clusters?
 - Is there a difference between whales of different types (finance, exchanges, miners, ...)?
-? Does this clustering change over time ?
+(? Does this clustering change over time ?)
 Data needed: network (V=addresses,E=txs) at each snapshot
 
 
