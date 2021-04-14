@@ -32,6 +32,7 @@ Data needed: dataset of (address) -> (balance) at each snapshot (gemiddelde)
 - Do whales trades among themselves or do they lead to clusters?
 - Is there a difference between whales of different types (finance, exchanges, miners, ...)?
 (? Does this clustering change over time ?)
+- Modularity is a good indication of the quality of the clustering! Newman et al. => Actual edges between clusters - the expected edges between clusters when distributed randomly 
 Data needed: network (V=addresses,E=txs) at each snapshot
 
 
