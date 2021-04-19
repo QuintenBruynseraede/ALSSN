@@ -40,25 +40,6 @@
 
 \begin{multicols}{2}
 
-Een paar handige commando's:
-\begin{itemize}
-\item{\begin{verbatim}\todo{x}\end{verbatim} Maakt rode tekst: \todo{x}}
-\item{\begin{verbatim}\section{sectienaam}\end{verbatim}Maak een nieuwe sectie}
-\item{\begin{verbatim}\subsection{sectienaam}\end{verbatim}Maak een nieuwe subsectie}
-\item{\begin{verbatim}\textbf{tekst}\end{verbatim}Zet tekst in \textbf{bold}}
-\item{\begin{verbatim}\textit{tekst}\end{verbatim}Zet tekst in \textit{italics}}
-\item{\begin{verbatim}\cite{referentie-naam}\end{verbatim}Maakt verwijzing naar bron (gedefinieerd in references.bib}
-\item{\begin{verbatim}\begin{itemize}
-\item{item1}
-\item{item2}
-\end{itemize}\end{verbatim}Maakt een opsomming met bolletjes}
-\item{\begin{verbatim}\begin{enumerate}
-\item{item1}
-\item{item2}
-\end{enumerate}\end{verbatim}Maakt een opsomming met nummers}
-
-\end{itemize}
-
 % Nieuwe sectie met \section
 \section{Introduction}
 The Ethereum network is a blockchain-based network for distributed processing. It contains a thriving ecosystem of distributed applications (dapps), ranging from financial tools to games and gambling. Ethereum's native token is called Ether (ETH), and it has become a acknowledged way of storing and transferring money: a so-called \textit{store-of-value}. In this report, we analyze how ETH is distributed among users, and how it flows between them. In particular, we analyze the role of a group of very wealthy users (called \textit{whales}), and we investigate how important these whales are for the network, and to what degree they contribute to wealth inequality.
@@ -100,7 +81,7 @@ Initialize \texttt{Queue} with 100 known addresses
 \end{algorithm}
 
 Although transactions contain many more features, we only use the columns \texttt{from}, \texttt{to}, and \texttt{value}.\\
-Each snapshot can then be considered a graph: nodes are addresses and edges are transactions between addresses. The value of the transaction is the weight of the edge. If multiple addresses occur between the same pair of addresses, we sum their values.
+Each snapshot can then be considered a graph: nodes are addresses and edges are transactions between addresses. The value of the transaction is the weight of the edge. If multiple transactions occur between the same pair of addresses, we sum their values.
 
 The following table shows the size of each snapshot:\\
 \vspace{5pt}
@@ -109,19 +90,49 @@ The following table shows the size of each snapshot:\\
 \begin{tabular}{p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.08\textwidth}}
 \textbf{Snapshot} & \textbf{\#txs} & \textbf{\#nodes} & \textbf{\#edges} \\ 
 \hline 
-Jan '17 & X & 81242 & 186942  \\
-Nov '17 & X & 548355 & 657697  \\
-Sep '18 & X & 528506 & 635623 \\
-Jul '19 & X & 550393 & 673967 \\
-May 20 & X & 474030 & 580773 \\
-Mar '21 & X & 566733 & 701482 \\
+Jan '17 & 475 598\footnote{Queue was empty before 1M transactions could be collected.}& 81 242 & 186 942  \\
+Nov '17 & 988 086 & 548 355 & 657 697  \\
+Sep '18 & 1 000 258 & 528 506 & 635 623 \\
+Jul '19 & 1 006 153 & 550 393 & 673 967 \\
+May 20 & 1 003 812 & 474 030 & 580 773 \\
+Mar '21 & 1 001 864 & 566 733 & 701 482 \\
 \end{tabular}
 \egroup
 
 To account for seasonal effects, the time between two snapshots is always 10 months. We also don't consider the state of the network before January 2017, when it was still relatively new and the number of transactions was low.
 
 \section{Analysis of the Ethereum network}
-\todo{TODO}
+First of all, it appears the average degree has remained constant over time (between 1 and 1.25), except for the snapshot Jan'17. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
+
+Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often.
+\end{multicols}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_jan_17.pdf}
+\end{minipage}%
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_nov_17.pdf}
+\end{minipage}
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_sep_18.pdf}
+\end{minipage}\\
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_jul_19.pdf}
+\end{minipage}%
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_may_20.pdf}
+\end{minipage}
+\begin{minipage}[t]{.33\textwidth}
+\includegraphics[scale=0.4]{figures/degree_dist_mar_21.pdf}
+\end{minipage}%
+\caption{Degree distribution for all snapshots}
+\label{tbl-degreedistributions}
+\end{figure}
+
+\begin{multicols}{2}
+
 \section{Inequality}
 \todo{TODO}
 \section{Clustering}
