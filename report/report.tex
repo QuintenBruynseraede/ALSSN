@@ -84,7 +84,7 @@ The Ethereum network has seen tremendous growth since its inception in 2015, and
 \section{Related Work}
 \todo{TODO}
 \section{Data collection}
-Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create separate 6 snapshots: each snapshot contains 1 million transactions that span 1 month of time.
+Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create six separate snapshots: each snapshot spans 1 month and is limited to 1 million transactions.
 
 \medskip
 \begin{algorithm}[H]
@@ -99,19 +99,29 @@ Initialize \texttt{Queue} with 100 known addresses
 } 
 \end{algorithm}
 
-Although transactions contain many more features, we only use the columns \texttt{from}, \texttt{to}, and \texttt{value}.
+Although transactions contain many more features, we only use the columns \texttt{from}, \texttt{to}, and \texttt{value}.\\
+Each snapshot can then be considered a graph: nodes are addresses and edges are transactions between addresses. The value of the transaction is the weight of the edge. If multiple addresses occur between the same pair of addresses, we sum their values.
+
+The following table shows the size of each snapshot:\\
+\vspace{5pt}
+\bgroup
+\def\arraystretch{1.5}
+\begin{tabular}{p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.08\textwidth}}
+\textbf{Snapshot} & \textbf{\#txs} & \textbf{\#nodes} & \textbf{\#edges} \\ 
+\hline 
+Jan '17 & X & 81242 & 186942  \\
+Nov '17 & X & 548355 & 657697  \\
+Sep '18 & X & 528506 & 635623 \\
+Jul '19 & X & 550393 & 673967 \\
+May 20 & X & 474030 & 580773 \\
+Mar '21 & X & 566733 & 701482 \\
+\end{tabular}
+\egroup
+
+To account for seasonal effects, the time between two snapshots is always 10 months. We also don't consider the state of the network before January 2017, when it was still relatively new and the number of transactions was low.
 
 \section{Analysis of the Ethereum network}
 \todo{TODO}
-	
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.44]{figures/graph.pdf}
-\caption{A graph}
-\label{fig-agraph}
-\end{figure}
-
-Hier verwijs ik automatisch naar Figure \ref{fig-agraph}. \\
 \section{Inequality}
 \todo{TODO}
 \section{Clustering}
