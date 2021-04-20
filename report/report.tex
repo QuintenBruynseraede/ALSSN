@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\usepackage{caption}
 \usepackage[compact]{titlesec}
 % Decrease font of subsections
 \titleformat{\section}
@@ -25,6 +26,11 @@
 % Kolomlayout
 \usepackage{multicol}
 \setlength{\columnsep}{1cm}
+
+% Kleine hack om Figures te gebruiken in multicols
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
 
 % Gebruik \todo{x} voor rode tekst
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
@@ -63,9 +69,9 @@ An important element within the composition of the Ethereum network are whales. 
 The Ethereum network has seen tremendous growth since its inception in 2015, and contains over 350 million transactions at the time of writing. Since June 2020, the daily number of transactions exceeds 1 million \footnote{https://etherscan.io/chart/tx}. Over 100 million addresses have been registered, and over 600 thousand addresses take part in transactions every day \footnote{https://bitinfocharts.com/comparison/ethereum-activeaddresses.html}. This means a full analysis is generally not feasible.
 
 \section{Related Work}
-It has to be said but the literature around this graph analysis of the Ethereum network is quite young but strongly emerging. Guo et al. (2019) were one of the first to address the properties of this network. They investigated  the ETH network in the initial phase as well as both in a more developed phase. They did not only limit to the description of the network and found out that several transaction features, such as the transaction volume, transaction relation, and component structure of the graph, exhibit the same heavy-tail property which can be approximated statistically by the power law function.
-Chen et al. (2020) performed a graph analysis on the Ethereum network. They focus on the characteristics of its users, smart contracts, and the relationships among them to get a deeper understanding of the network. Money transfers, smart contract creations and smart contract invocations are central within their work. These three elements are vital for the users to send money, to create smart contracts on Ethereum, and for the users or applications to invoke the created smart contracts. In this work metrics like degree distribution, degree centrality, Pearson coefficient, clustering coefficient, PageRank are used and therefore forms a good benchmark for this work.
-Victor \& Lüders (2019) are focusing on the trade of tokens on the Ethereum network, more specifically called ERC20 token networks. These tokens can be seen as digital assets, built on top of ETH and strengthen the Ethereum ecosystem by driving demand for ETH, needed to power the smart contracts. They provide an overview of 64,000 ERC20 token network and focus graphically on the top 1,000. In this work, they observe that the token networks are frequently dominated by a single hub and spoke pattern, supplemented with very small clustering coefficients. The token network looks disassortative and a lot of the network activity is directed towards exchanges whereby many owners never transfer their tokens at all.
+It has to be said: the literature around graph analysis of the Ethereum network is quite young but strongly emerging. Guo et al. (2019) \cite{GUO201958} were one of the first to address the properties of this network. They investigated the ETH network in the initial phase and in a more developed phase. They found out that several transaction features, such as the transaction volume, transaction relation, and component structure of the graph, exhibit the same heavy-tail property which can be approximated statistically by the power law function. Our work gives a more complete overview of the \textit{evolution} of the network, because we analyze it at six stages instead of just two.\\
+Chen et al. (2020) \cite{chenEthereum} performed a graph analysis on the Ethereum network. They focus on the characteristics of its users, smart contracts, and the relationships among them to get a deeper understanding of the network. Money transfers, smart contract creations and smart contract invocations are central within their work. These three elements are vital for the users to send money, to create smart contracts on Ethereum, and for the users or applications to invoke the created smart contracts. In this work, metrics like degree distribution, degree centrality, Pearson coefficient, clustering coefficient, PageRank are used and therefore forms a good benchmark for this work.\\
+Victor \& Lüders (2019) \cite{inbook} focus on the trade of tokens on the Ethereum network, more specifically called ERC20 token networks. These tokens can be seen as digital assets, built on top of ETH and strengthen the Ethereum ecosystem by driving demand for ETH, needed to power the smart contracts. They provide an overview of 64,000 ERC20 token network and focus graphically on the top 1,000. In this work, they observe that the token networks are frequently dominated by a single hub and spoke pattern, supplemented with very small clustering coefficients. The token network looks disassortative and a lot of the network activity is directed towards exchanges whereby many owners never transfer their tokens at all. As ERC-20 tokens can be considered a smart contract, we will not spend much time investigating this aspect, but they are an indispensable part of the Ethereum ecosystem.
 
 
 \section{Data collection}
@@ -108,7 +114,7 @@ To account for seasonal effects, the time between two snapshots is always 10 mon
 \section{Analysis of the Ethereum network}
 First of all, it appears the average degree has remained constant over time (between 1 and 1.25), except for the snapshot Jan'17. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
 
-Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often.
+Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often. It is noteworthy that Guo et al. \cite{GUO201958} find a power law distribution with an exponent of $k = 3.23$, whereas we find $k=2.1$. We suspect this difference can be explained by our data collection method, which favours nodes with a high degree (i.e. transactions with many other nodes).
 \end{multicols}
 
 \begin{figure}[h]
@@ -136,6 +142,15 @@ Figure \ref{tbl-degreedistributions} shows the degree distribution for each snap
 \end{figure}
 
 \begin{multicols}{2}
+Next, we look at the transaction volume in each snapshot. For our network, the transaction volume of a node is simply the sum of all outgoing transactions. Similar to what Guo et al. discovered \cite{GUO201958}, the transaction volume appears to follow a power law.
+
+\begin{Figure}
+\centering
+\includegraphics[scale=0.53]{figures/transaction_volume.pdf}
+\captionof{figure}{Distribution of transaction volumes}
+\end{Figure}
+
+This logarithmic plot shows how the transaction volumes are distributed for each snapshot. First of all, it appears that transaction volumes have not changed much over time. A deviation is observed in the 2017 snapshots, in which transaction volumes were a bit higher than average. We suspect this deviation may be caused by the so-called \textit{2017 bull run}, a period of spiking prices, which attracts many new investors. Interestingly enough, the bull run that is currently ongoing is not reflected in the transaction volumes of the March 2021 snapshot.
 
 \section{Inequality}
 \todo{TODO}
