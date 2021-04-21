@@ -13,6 +13,7 @@
   {\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}
   {\normalfont\fontsize{10}{10}\bfseries}{\thesubsection}{1em}{}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
   
 \usepackage{float}
 \usepackage{algorithm2e}
@@ -112,6 +113,8 @@ Mar '21 & 1 001 864 & 566 733 & 701 482 \\
 To account for seasonal effects, the time between two snapshots is always 10 months. We also don't consider the state of the network before January 2017, when it was still relatively new and the number of transactions was low.
 
 \section{Analysis of the Ethereum network}
+In this section, we look at some global characteristics of the Ethereum network. Wherever possible, we show how these characteristics evolved over time.
+\subsection{Degree and transaction volume}
 First of all, it appears the average degree has remained constant over time (between 1 and 1.25), except for the snapshot Jan'17. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
 
 Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often. It is noteworthy that Guo et al. \cite{GUO201958} find a power law distribution with an exponent of $k = 3.23$, whereas we find $k=2.1$. We suspect this difference can be explained by our data collection method, which favours nodes with a high degree (i.e. transactions with many other nodes).
@@ -150,7 +153,59 @@ Next, we look at the transaction volume in each snapshot. For our network, the t
 \captionof{figure}{Distribution of transaction volumes}
 \end{Figure}
 
-This logarithmic plot shows how the transaction volumes are distributed for each snapshot. First of all, it appears that transaction volumes have not changed much over time. A deviation is observed in the 2017 snapshots, in which transaction volumes were a bit higher than average. We suspect this deviation may be caused by the so-called \textit{2017 bull run}, a period of spiking prices, which attracts many new investors. Interestingly enough, the bull run that is currently ongoing is not reflected in the transaction volumes of the March 2021 snapshot.
+This logarithmic plot shows how the transaction volumes are distributed for each snapshot. First of all, it appears that transaction volumes have not changed much over time. A deviation is observed in the 2017 snapshots, in which transaction volumes were a bit higher than average. We suspect this deviation may be caused by the so-called \textit{2017 bull run}, a period of spiking prices, which attracted many new investors. Interestingly enough, the bull run that is currently ongoing is not reflected in the transaction volumes of the March 2021 snapshot.
+
+\subsection{Small-world characteristics}
+Many networks can be considered \textit{small-world networks}: they have a) a high clustering coefficient, and b) a low average path length \cite{WattsDuncanJ1998Cdos} (often $L \propto log(N)$). Compared to random graphs generated with the Erd\"{o}s-R\'{e}nyi model, small-world graphs have many cliques or near-cliques, and many hubs: nodes that connect cliques and facilitate shorter path lengths.
+
+The Ethereum network on the other hand, has a very low clustering coefficient: in all snapshots, we measured this coefficient as less than 1e-4. In their original paper, Watts and Duncan demonstrate small-world networks with clustering coefficients up to 0.79, so the Ethereum network is certainly not heavily clustered. Apart from January 2017, where the clustering coefficient was a bit higher, it has remained more or less constant. 
+
+\begin{Figure}
+\centering
+\includegraphics[scale=0.55]{figures/transitivity.pdf}
+\captionof{figure}{Evolution of transitivity over time.}
+\end{Figure}
+
+The average geodesic path length, however, is very small, and appears to be in the order of magnitude that is required for a small-scale network: $L \propto log(N)$. 
+
+\begin{Figure}
+\centering
+\includegraphics[scale=0.55]{figures/average_path.pdf}
+\captionof{figure}{Evolution of transitivity over time.}
+\end{Figure}
+
+Remarkably, for both transitivity and average path length, the January 2017 snapshot appears to be an outlier: we suspect that the lower number of nodes leads to a slightly higher average.
+
+Based on these metrics, we can conclude that the Ethereum is not a typical small-world network: the network is not nearly clustered enough. However, the average path length is quite small. We suspect that the network is structured as a number of highly-active hubs (most likely exchanges), that trade with many individual users directly. These users rarely trade among themselves. This claim is also supported by the degree distribution: a very large part of the network has only one connection. Furthermore, many addresses likely belong to individual users, who have no intention of trading regularly, but just hold Ether as a long-term investment.
+
+\vspace{5pt}
+\begin{Figure}
+\centering
+\includegraphics[scale=0.2]{figures/actual_structure.pdf}
+\captionof{figure}{Structure of Ethereum network (red nodes are 'hubs', green nodes are 'users').}
+\end{Figure}
+
+\subsection{Whales}
+We now shift our focus to whales: addresses that have at least 10 000 ETH. Unfortunately, it is not possible to identify whales in the past: finding out the balance of an address at a certain point in times requires backtracking the entire Ethereum blockchain, which is over 4 terabytes large. Therefore, our analysis of whales is limited to the current situation and we are not able to observe how the situation changed over time.
+
+Currently, 1292 addresses are considered whales. Our most recent snapshot (March 2021) includes transactions from more than 500 000 addresses, of which \textbf{60} are whales. Despite making up less than 0.01\% percent of the network, whales account for a trading volume of more than 25\% (2.33 million out of 9.26 million ETH). Obviously, this imbalance can partially be attributed to the fact that whales have the capacity to trade large amounts, but it strengthens our suspicion that whales are very important traders, and may coincide with hubs.\\
+
+We induce a subgraph by selecting all whales and the edges between them. We can now compare the full network with this subgraph.
+
+\vspace{5pt}
+\bgroup
+\def\arraystretch{1.5}
+\begin{tabular}{p{0.2\textwidth}|p{0.12\textwidth}|p{0.07\textwidth}}
+ & \textbf{Full graph} & \textbf{Whales} \\ 
+\hline 
+Shortest path length & 6.46 & 1.84 \\
+Transitivity & 3.7e-5 & 0.06\\
+Diameter & 22 & 4 \\
+\end{tabular}
+\egroup
+\vspace{5pt}
+
+These differences indicate that whales are somewhat more connected between themselves than the entire network. However, these numbers have to be compared carefully, as there are only 60 whales, which naturally leads to shorter paths and a smaller diameter. Transitivity, however, is a relative metric and proves an increased connectedness between whales. Still, from an absolute point of view, a transitivity of 0.06 is not high: we can definitely not conclude that many whales are directly connected.
 
 \section{Inequality}
 \todo{TODO}
