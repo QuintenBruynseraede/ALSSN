@@ -117,7 +117,7 @@ To account for seasonal effects, the time between two snapshots is always 10 mon
 \section{Analysis of the Ethereum network}
 In this section, we look at some global characteristics of the Ethereum network. Wherever possible, we show how these characteristics evolved over time.
 \subsection{Degree and transaction volume}
-First of all, it appears the average degree has remained constant over time (between 1 and 1.25), except for the snapshot Jan'17. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
+First of all, it appears that the average degree of the first snapshot in Jan'17 is high, 4.602, whereas in the following snapshots this number is significantly lower and lies within the range of 2.398 and 2.476. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
 
 Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often. It is noteworthy that Guo et al. \cite{GUO201958} find a power law distribution with an exponent of $k = 3.23$, whereas we find $k=2.1$. We suspect this difference can be explained by our data collection method, which favours nodes with a high degree (i.e. transactions with many other nodes).
 \end{multicols}
