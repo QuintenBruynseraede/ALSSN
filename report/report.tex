@@ -43,7 +43,7 @@
 % Abstract 
 \begin{abstract}
 	
-This work investigates some major properties of the Ethereum network. The focus in this research lies on the execution of the smart contracts. This analysis involves the use of various graph analysis tools to produce insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whale}) to address their role and influence within the network. Six different snapshots are taken of the network, starting in January 2017 and ending in March 2021. 
+This work investigates the Ethereum network. The focus in this research lies on the execution of the smart contracts \todo{Vergissing denk ik? We zeggen niks over smart contracts...}. This analysis involves the use of various graph analysis tools to produce insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whale}) to address their role and influence within the network. Six different snapshots are taken of the network, starting in January 2017 and ending in March 2021. 
 
 \end{abstract}
 
@@ -209,8 +209,25 @@ Diameter & 22 & 4 \\
 
 These differences indicate that whales are somewhat more connected between themselves than the entire network. However, these numbers have to be compared carefully, as there are only 60 whales, which naturally leads to shorter paths and a smaller diameter of the network. Transitivity, however, is a relative metric and shows an increased connectedness between whales. Still, from an absolute point of view, a transitivity of 0.06 is not high: we can definitely not conclude that many whales are directly connected.
 
-\section{Inequality}
-\todo{TODO}
+Figure 6 shows a visualization of the 60 whales we found in March. Fortunately, some addresses are publicly known and can be linked to their organization or goal.As expected, most whales orginate from cryptocurrency exchanges and a large portion of whales remains anonymous. We also show which whales interact with each other, and the node size is proportional to the addresses' balance in March 2021. 
+
+\vspace{5pt}
+\begin{Figure}
+\centering
+\includegraphics[scale=0.23]{figures/whales.pdf}
+\label{whales}
+\captionof{figure}{Visualization of whales by address type.}
+\end{Figure}
+
+We conclude:
+\begin{itemize}
+\item{Almost all whales are exchanges.}
+\item{All exchanges trade with other whales.}
+\item{Non-exchange whales do not trade as much with other whales.}
+\end{itemize}
+
+As we expected, exchanges form an important and highly connected backbone to the network. They hold and trade large amounts of Ether. Other applications that make use of the ethereum network (such as mining, financial products and tokens) do not play such a large role yet. This also confirms our suspicion that Ether is nowadays mostly traded as an investment; we do not yet observe a large amount of activity between users and applications on the Ethereum network.
+
 \section{Clustering}
 \end{multicols}
 \bibliographystyle{plain}
