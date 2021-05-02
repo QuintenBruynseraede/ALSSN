@@ -228,7 +228,28 @@ We conclude:
 
 As we expected, exchanges form an important and highly connected backbone to the network. They hold and trade large amounts of Ether. Other applications that make use of the ethereum network (such as mining, financial products and tokens) do not play such a large role yet. This also confirms our suspicion that Ether is nowadays mostly traded as an investment; we do not yet observe a large amount of activity between users and applications on the Ethereum network.
 
-\section{Clustering}
+\section{Community detection}
+Previously, we investigated cluster-like structures among whales. We now apply proper community detection techniques to each snapshot, using the modularity measure to evaluate the clustering. Given the size of our networks, an efficient technique is desired. Additionally, we have no prior expectation about the number of clusters in our network. The following clustering approaches have been analyzed: 
+\begin{enumerate}
+\item{\textbf{Louvain method:} a divisive method that claims linear time complexity on sparse graphs. Its hierarchical nature may also help resolve the resolution limit problem \cite{Blondel_2008}.}
+\item{\textbf{Leiden method:} an improvement to the Louvain algorithm that prevents communities that are badly connected or even completely disconnected \cite{leiden}.}
+\item{\textbf{Eigenvector method:} this method expresses modularity in terms of eigenvectors of the so-called \textit{modularity matrix} \cite{Newman_2006}. The recursive implementation of this method will keep splitting communities until no longer possible, or a fixed number of communities is reached. To prevent it from endlessly splitting, we set the maximum number to 100, a bit higher than the average number of clusters by the Leiden and Louvain methods.}
+\end{enumerate}
+
+Figure \ref{clusters} shows the results of community detection.
+\vspace{5pt}
+\begin{Figure}
+\centering
+\includegraphics[scale=0.45]{figures/clusters_modularity.pdf}
+\includegraphics[scale=0.45]{figures/clusters_num.pdf}
+\label{clusters}
+\captionof{figure}{Modularity and number of clusters for three clustering methods.}
+\end{Figure}
+
+Clearly, the Louvain and Leiden methods find very similar clusterings. This leads us to believe that the principal problem Leiden tries to overcome (badly connected communities), does not occur in our networks. The modularity of their clusterings is very high ( The number of communities is quite stable over time between 70 and 90. Again, we observe a deviation in the first snapshot, caused by the smaller network size. 
+
+The eigenvector method yields very different result: a low number of clusters (often even 0) and a modularity under 0.4.
+
 \end{multicols}
 \bibliographystyle{plain}
 \bibliography{references}
