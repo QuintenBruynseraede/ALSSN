@@ -253,26 +253,23 @@ The eigenvector method yields a very different result: a low number of clusters 
 
 
 \section{Visualization} 
-In this part the snapshots are all visualized to see whether the characteristics mentioned in 5.2 and shown on Figure 5 can also be obtained visually. 
-For the visualization of the network Gephi is used because of its flexibility and representational power. 
-On the other hand, for the visualizations, Gephi's limitations have also come to the forefront, the size of the snapshots was too large to be workable, that is why the network was limited for the visualizations. 
+In this section, we visualize the snapshots to see whether the characteristics mentioned in Section 5.2 and shown in Figure 5 can also be obtained visually. 
+Gephi was used to visualize the network, mainly for its flexibility and representational power. 
+However, Gephi's limitations became apparent when visualizing the network: the size of the snapshots was too large to be workable. That is why only a part of the network is used in the visualizations. 
 
-Figure 9 is a representation of the network of January 2017 with 39 281 nodes and 50 154 edges. Figure 10 is a representation of July 2021 with 49 125 nodes and 50 034 edges. The used layout algorithm is OpenOrd because of its ability to distinguish clusters in an orderly and convenient way and is able to work well with a lot of nodes. In the second step the Yifan Hu layout is used on the OpenOrd graph representation. This is a very fast algorithm with a good quality on large graphs. It combines a force-directed model with a graph coarsening technique to reduce the complexity. The combination of these two gave actually a very clear representation of the network \footnote{https://gephi.org/users/tutorial-layouts/}.
+Figure 9 shows the network in January 2017 with 39 281 nodes and 50 154 edges. Figure 10 is a representation of July 2021 with 49 125 nodes and 50 034 edges. The used layout algorithm is OpenOrd\cite{martin2011openord} because of its ability to distinguish clusters in a convenient way and ability to work with large networks. In the second step, the Yifan Hu layout was used on the OpenOrd graph representation. This is a very fast algorithm with good empirical results on large graphs. It combines a force-directed model with a graph coarsening technique to reduce the complexity. The combination of these two gave actually a very clear representation of the network\footnote{https://gephi.org/users/tutorial-layouts/}.
 
-The colors of the graph can be seen as the main clusters which are obtained from the Leiden algorithm where the modularity is used as the final metric to disitinguish the clusters. Around 70\% of the nodes are included in a colored cluster. 
-
-
+The colors of the graph are the main clusters which are obtained from the Leiden algorithm. To keep the figure simple, only the largest seven clusters are shown. These seven clusters contain about 70\% of the nodes. 
 
 \begin{Figure}
 \centering
-\includegraphics[scale=0.45]{figures/Jan_17_edges.png}
+\includegraphics[scale=0.42]{figures/Jan_17_edges.png}
 \label{clusters}
 \captionof{figure}{Visualization of the ETH network in January 2017.}
 \end{Figure}
 
 \begin{Figure}
 \centering
-\caption{Caption}
 \label{fig:my_label}
 \includegraphics[scale=0.45]{figures/Marc21_edges.png}
 \label{clusters}
@@ -283,13 +280,35 @@ The colors of the graph can be seen as the main clusters which are obtained from
 
 \section{Validity, reliability \& scalability}
 
-In this section validity, reliability and scalability will be used to evaluate the performance of the graph analysis. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability says something to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and maps the Time and Space complexity of the the graph. 
+In this section validity, reliability and scalability will be used to evaluate the performance of the graph analysis. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability tries to investigate to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and is concerced with space and/or time complexity of the methods used. 
 
-First of all validity is discussed. In terms of external and construct validity we had to make some choices to be able to work with a manageable data set. We had to limit the graph and this could have implications when the network is reconstructed without any restrictions on the number of nodes and edges. Although we have selected a significant network, based on a BFS, this can still create a bias. The size of the selected snapshots should compensate for this to some extent. Another point to keep in mind is the reliability of the graph analysis. We tried to handle this issue by using several metrics for the clustering and the community detection. The third measure to address is the scalability. All code was run on Google Collaborate with the help of the Igraph library, although some metrics took a considerable time to be calculated this could still be done in considerable time (MSS NOG AANVULLEN???). 
+\begin{itemize}
+\item{\textbf{Validity:} when constructing the network, we had to make some compromises to get a dataset of managable size. First of all, we limited ourselves to a graph of 1 million nodes: the full network is probably structured slightly differently than the subnetwork we analyzed. To generate a trustworthy sample, a BFS algorithm was used, but the addresses used to initialize search queue may affect the validity of the network. The size of the snapshots should compensate for this to some extent.}
+\item{\textbf{Reliability:} for each method, we compared the results of several algorithms and metrics: we looked at degree distribution and transaction volumes, investigated the small-world characteristics using transitivity and average path length, and compared whales using geosedic path length, transitivy and diameter. Furthermore, we also used visualizations to confirm some properties about whales. To detect clusters, we compared three algorithms. In each case, we saw that different metrics and methods confirm our intuitions. Finally, wherever possible, we analyzed the network at 6 different points in time, adding another dimension to our insights.}
+\item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. Therefore, most metrics and methods used have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
+\vspace{5pt}
+\bgroup
+\def\arraystretch{1.5}
+\begin{tabular}{p{0.2\textwidth}|p{0.12\textwidth}}
+Degree distribution & $O(V)$ \\ \hline
+Transitivity & $O(V \times d^2)$ \\ \hline
+Shortest path length & $O(V^2 \times E)$ \\ \hline
+Diameter & $O(V \times E)$ \\ \hline
+Louvain & "near linear" \\ \hline
+Leiden & "near linear" \\ \hline
+Leading eigenvector & $O(E+V^2)$ \\ \hline
+OpenOrd Layout & $O(N)$ \\
+\hline
+\end{tabular}
+\egroup
+\vspace{5pt}\\
+All complexities can be found in the igraph reference manual \cite{igraph} and the Openord paper \cite{martin2011openord}.}
+\end{itemize}
 
 \section{Conclusion}
 
-In this work, the money flow of Ethereum was examined using a graph analysis.  One of the first findings is that  transaction  volumes  have  not changed  much  over  time, only in 2017 these transactions were a bit higher. A second point of interest in the analysis was the small-world characteristics. We did obtain a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. 
+In this work, the money flow of Ethereum was examined using tools from graph analysis.  
+One of the first findings is that  transaction  volumes  have  not changed  much  over  time, except for 2017, where the volumes were a bit higher. A second point of interest in the analysis was the small-world characteristics: we obtained a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. Furthermore, we looked at whales and concluded that they form a more connected backbone to the Ethereum network with many high-volume trades. 
 
 \end{multicols}
 \bibliographystyle{plain}
