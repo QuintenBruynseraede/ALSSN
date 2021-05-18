@@ -286,6 +286,7 @@ In this section validity, reliability and scalability will be used to evaluate t
 \item{\textbf{Validity:} when constructing the network, we had to make some compromises to get a dataset of managable size. First of all, we limited ourselves to a graph of 1 million nodes: the full network is probably structured slightly differently than the subnetwork we analyzed. To generate a trustworthy sample, a BFS algorithm was used, but the addresses used to initialize search queue may affect the validity of the network. The size of the snapshots should compensate for this to some extent.}
 \item{\textbf{Reliability:} for each method, we compared the results of several algorithms and metrics: we looked at degree distribution and transaction volumes, investigated the small-world characteristics using transitivity and average path length, and compared whales using geosedic path length, transitivy and diameter. Furthermore, we also used visualizations to confirm some properties about whales. To detect clusters, we compared three algorithms. In each case, we saw that different metrics and methods confirm our intuitions. Finally, wherever possible, we analyzed the network at 6 different points in time, adding another dimension to our insights.}
 \item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. Therefore, most metrics and methods used have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
+
 \vspace{5pt}
 \bgroup
 \def\arraystretch{1.5}
@@ -297,7 +298,9 @@ Diameter & $O(V \times E)$ \\ \hline
 Louvain & "near linear" \\ \hline
 Leiden & "near linear" \\ \hline
 Leading eigenvector & $O(E+V^2)$ \\ \hline
-OpenOrd Layout & $O(N \times log(N))$ \\
+OpenOrd Layout & $O(N) \times log(N)$ \\
+Yifan Hu & $O(N) \times log(N)$ \\
+
 \hline
 \end{tabular}
 \egroup
