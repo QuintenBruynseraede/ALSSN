@@ -44,7 +44,7 @@
 % Abstract 
 \begin{abstract}
 	
-This work investigates the Ethereum network and more particulary focuses on the transactions of Ether. Various graph analysis tools are used to obtain insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whales}), to address their role and influence within the network. Finally, we investigate the community structure of the network. Six different snapshots of the network are used, starting in January 2017 and ending in March 2021. This allows us to identify evolutions over time.
+This work investigates the Ethereum network and more particularly focuses on the transactions of Ether. Various graph analysis tools are used to obtain insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whales}), to address their role and influence within the network. Finally, we investigate the community structure of the network is investigated through the Louvain, Leiden and Eigenvector method. Six different snapshots of the network are used, starting in January 2017 and ending in March 2021. This allows to investigate the importance of whales and the evolution of the network.
 
 \end{abstract}
 
@@ -79,7 +79,7 @@ Victor \& Lüders (2019) \cite{inbook} focus on the trade of tokens on the Ether
 
 
 \section{Data collection}
-Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create six separate snapshots: each snapshot spans 1 month and is limited to 1 million transactions. We describe our data collection method in pseudocode:
+Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create six separate snapshots: each snapshot spans 1 month and is limited to 1 million transactions. We describe our data collection method in pseudo-code:
 
 \medskip
 \begin{algorithm}[H]
@@ -169,7 +169,7 @@ This logarithmic plot shows how the transaction volumes are distributed for each
 \subsection{Small-world characteristics}
 Many networks can be considered \textit{small-world networks}: they have a) a high clustering coefficient, and b) a low average path length \cite{WattsDuncanJ1998Cdos} (often $L \propto log(N)$). Compared to random graphs generated with the Erd\"{o}s-R\'{e}nyi model, small-world graphs have many cliques or near-cliques, and many hubs: nodes that connect cliques and facilitate shorter path lengths.
 
-The Ethereum network on the other hand, has a very low clustering coefficient: in all snapshots, we measured this coefficient as less than 1e-4. In their original paper, Watts and Duncan demonstrate small-world networks with clustering coefficients up to 0.79, so the Ethereum network is certainly not heavily clustered. Apart from January 2017, where the clustering coefficient was a bit higher, it has remained more or less constant. 
+The Ethereum network on the other hand, has a very low clustering coefficient: in all snapshots, we measured this coefficient as less than 1e-4. In their original paper, Watts and Duncan demonstrate small-world networks with clustering coefficients up to 0.79, so the Ethereum network is certainly not heavily clustered. Apart from January 2017, where the clustering coefficient was a bit higher, it has remained more or less constant. This results are also in line with the findings of  Chen et al. (2020) \cite{chenEthereum}. 
 
 \begin{Figure}
 \centering
@@ -284,14 +284,16 @@ The colors of the graph are the main clusters which are obtained from the Leiden
 \captionof{figure}{Visualization of the ETH network in March 2021.}
 \end{Figure}
 
+What is mostly notable about this visualizations is that you see some major nodes (with a high degree) are surrounded by a cloud of nodes with a smaller degree. These visualizations are similar to the ones shown in the works of Guo et al. \cite{GUO201958} and Chen et al. (2020) \cite{chenEthereum}.
+
 \section{Validity, reliability \& scalability}
 
-In this section the validity, reliability and scalability of our analysis will be discussed. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability tries to investigate to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and is concerced with space and/or time complexity of the methods used. 
+In this section the validity, reliability and scalability of our analysis will be discussed. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability tries to investigate to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and is concerned with space and/or time complexity of the methods used. 
 
 \begin{itemize}
-\item{\textbf{Validity:} when constructing the network, we had to make some compromises to get a dataset of managable size. First of all, we limited ourselves to a graph of 1 million nodes: the full network is probably structured slightly differently than the subnetwork we analyzed. To generate a trustworthy sample, a BFS algorithm was used, but the addresses used to initialize search queue may affect the validity of the network. The size of the snapshots should compensate for this to some extent.}
+\item{\textbf{Validity:} when constructing the network, we had to make some compromises to get a dataset of manageable size. First of all, we limited ourselves to a graph of 1 million nodes: the full network is probably structured slightly differently than the subnetwork we analyzed. To generate a trustworthy sample, a BFS algorithm was used, but the addresses used to initialize search queue may affect the validity of the network. The size of the snapshots should compensate for this to some extent.}
 \item{\textbf{Reliability:} for each method, we compared the results of several algorithms and metrics: we looked at degree distribution and transaction volumes, investigated the small-world characteristics using transitivity and average path length, and compared whales using geodesic path length, transitivity and diameter. Furthermore, we also used visualizations to confirm some properties about whales. To detect clusters, we compared three algorithms. In each case, we saw that different metrics and methods confirm our intuitions. Finally, wherever possible, we analyzed the network at 6 different points in time, adding another dimension to our insights.}
-\item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. First of all, our data collection will not scale well, because the Etherscan API severly limits the number of requests per second. It is however possible to sync a personal node to the netwerk, and query locally. Because we used a fairly large network, most metrics and methods used have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
+\item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. First of all, our data collection will not scale well, because the Etherscan API severely limits the number of requests per second. It is however possible to sync a personal node to the network, and query locally. Even though we used a fairly large network, most metrics and methods used still have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
 
 \vspace{5pt}
 \bgroup
@@ -317,7 +319,7 @@ All complexities can be found in the igraph reference manual \cite{igraph} and t
 \section{Conclusion}
 
 In this work, the money flow of Ethereum was examined using tools from graph analysis.  
-One of the first findings is that  transaction  volumes  have  not changed  much  over  time, except for 2017, where the volumes were a bit higher. A second point of interest in the analysis was the small-world characteristic: we obtained a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. Furthermore, we looked at whales and concluded that they form a more connected backbone to the Ethereum network with many high-volume trades. 
+One of the first findings is that  transaction  volumes  have  not changed  much  over  time, except for 2017, where the volumes were a bit higher. A second point of interest in the analysis was the small-world characteristic: we obtained a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. Furthermore, we looked at whales and concluded that they form a more connected backbone to the Ethereum network with many high-volume trades. Our results are in line with the results of the literature to some extent, but of course we were also limited in examining the entire network.
 
 \end{multicols}
 \bibliographystyle{plain}
