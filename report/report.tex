@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{caption}
+\usepackage{wrapfig}
 \usepackage[compact]{titlesec}
 % Decrease font of subsections
 \titleformat{\section}
@@ -43,7 +44,7 @@
 % Abstract 
 \begin{abstract}
 	
-This work investigates the Ethereum network and more particulary focusses on the transactions of Ethereum. Various graph analysis tools are used to obtain insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whale}) to address their role and influence within the network and in the end the community structure of the network is addressed. Six different snapshots are taken of the network, starting in January 2017 and ending in March 2021. 
+This work investigates the Ethereum network and more particulary focuses on the transactions of Ether. Various graph analysis tools are used to obtain insights about this network. First of all, a descriptive graph analysis of the network is performed, followed by an analysis of the major players in network (called \textit {whales}), to address their role and influence within the network. Finally, we investigate the community structure of the network. Six different snapshots of the network are used, starting in January 2017 and ending in March 2021. This allows us to identify evolutions over time.
 
 \end{abstract}
 
@@ -51,34 +52,34 @@ This work investigates the Ethereum network and more particulary focusses on the
 
 % Nieuwe sectie met \section
 \section{Introduction}
-The Ethereum network is a blockchain-based network for distributed processing. It contains a thriving ecosystem of distributed applications (dapps), ranging from financial tools to games and gambling. Ethereum's native token is called Ether (ETH), and it has become a acknowledged way of storing and transferring money: a so-called \textit{store-of-value}. In this report, we analyze how ETH is distributed among users, and how it flows between them. In particular, we analyze the role of a group of very wealthy users (called \textit{whales}), and we investigate how important these whales are for the network, and to what degree they contribute to wealth inequality.
+The Ethereum network is a blockchain-based network for distributed processing. It contains a thriving ecosystem of distributed applications (dapps), ranging from financial tools to games and gambling. Ethereum's native token is called Ether (ETH), and it has become a acknowledged way of storing and transferring money: a so-called \textit{store-of-value}. In this report, we analyze how ETH is distributed among users, and how it flows between them. In particular, we analyze the role of a group of very wealthy users (called \textit{whales}), and we investigate how important these whales are for the network.
 
 In Chapter 2, we introduce some basic concepts related to the Ethereum network. Chapter 3 outlines past work about network analysis of cryptocurrency networks, in particular the Ethereum network. In Chapter 4, we describe how we collected the necessary data. Chapter 6 analyzes the network using a set of network analysis tools, and try to show the importance of whales. Chapter 7 focuses on inequality within the Ethereum network. In Chapter 8, we try to analyze clusters in the network, and try to link these clusters to their utility in the network. 
 
 \section{Ethereum}
 % Subsections
 
-In the following section, some fundamental concepts and definitions needed to understand the Ethereum network are explained. Based on this, it is also intended to better understand the network and thus observe and understand the obtained characteristics and network statistics of the network. 
+In the following section, some fundamental concepts and definitions needed to understand the Ethereum network are explained.  
 
 \subsection{Ethereum}
-First of all, a formal definition of Ethereum is needed. Ethereum is an open-source, blockchain-based and decentralized software platform. It makes use of its own cryptocurrency, called Ether. The main novelty of Ethereum is its ability to execute smart contracts and create decentralized, distributed applications without any downtime, fraud, control or involvement from a third party. A smart contract can be seen as a piece of code that describes the rules for a transaction between two parties, similar to a written contract. Smart contracts on the Ethereum network are Turing-complete (i.e. they can describe arbitrary computations), and are mostly programmed in the Solidity programming language. 
+Ethereum is an open-source, blockchain-based and decentralized software platform. It makes use of its own cryptocurrency, called Ether. The main novelty of Ethereum is its ability to execute smart contracts and create decentralized, distributed applications without any downtime, fraud, control or involvement from a central party. A smart contract can be seen as a piece of code that describes the rules for a transaction between two parties, similar to a written contract. Smart contracts on the Ethereum network are Turing-complete (i.e. they can describe arbitrary computations), and are mostly programmed in the Solidity programming language. 
 \subsection{Addresses and transactions}
-Users store their Ether in an account, uniquely represented by a 20-byte address, such as \texttt{0xed9a430d9a11616eb1cb07ebc28c9e20a03bd486}. Transactions contain (among other fields), a sender, a recipient and a transaction value expressed in \textit{wei}. 1 Ether is equal to 10e\textsuperscript{18} wei. Smart contracts are also identified by a 20-byte address, and executing these smart contracts can be done by sending them a transaction. All transactions are public by default, but there is no direct link between the identify of a user and his address: the vast majority of transactions happen anonymously. However, several services use addresses that are publicly known. For example, Binance, one of the largest cryptocurrency marketplaces, has at least 20 known addresses \footnote{https://etherscan.io/accounts/label/binance}.
+Users store their Ether in an account, uniquely represented by a 20-byte address, such as \texttt{0xed9a430d9a11616eb1cb07ebc28c9e20a03bd486}. Transactions contain (among other fields), a sender, a recipient and a transaction value expressed in \textit{wei}. 1 Ether is equal to 10e\textsuperscript{18} wei.  All transactions are public by default, but there is no direct link between the identify of a user and his address: the vast majority of transactions happen anonymously. However, several services use addresses that are publicly known. For example, Binance, one of the largest cryptocurrency marketplaces, has at least 20 known addresses \footnote{https://etherscan.io/accounts/label/binance}.
 \subsection{Whales}
-An important element within the composition of the Ethereum network are whales. Ma \footnote{https://academy.binance.com/en/glossary/whale} gives the following definition:“The term \textit {whale} is used to describe an individual or organization that holds a large amount of a particular cryptocurrency.” This amount is not clearly defined, but within the cryptocurrency community a threshold of around 1 000 of a particular cryptocurrency is being seen as the standard. It is clear that this value can fluctuate, based on the underlying value of the cryptocurrency. In the Ethereum network this threshold is set on owners who own 10 000 Ethereum or more, these holders control approximately 70\% of the total supply of the cryptocurrency\footnote {https://coinmarketcap.com/nl/headlines/news/ethereum-eth-whales-hold-68-percent-total-supply/} \footnote {https://blockworks.co/ethereum-whales-gobble-70-of-eth/}. The choice of the name whale is due to the fact that these parts of the network have a lot of market power within the network and are able to push the market up or down. A whale is not especially limited to an individual, this could also refer an institution or organization that holds a significant amount of cryptocurrencies within the network \footnote{https://academy.binance.com/en/glossary/whale}.
+An important element within the Ethereum network are whales. Ma gives the following definition:"The term \textit {whale} is used to describe an individual or organization that holds a large amount of a particular cryptocurrency." \cite{ma}. It is clear that this value can fluctuate, based on the underlying value of the cryptocurrency. In the Ethereum network, a user is considered a whale if they own more than 10 000 Ethereum. These holders control approximately 70\% of the total supply of Ether \footnote {https://coinmarketcap.com/nl/headlines/news/ethereum-eth-whales-hold-68-percent-total-supply/} \footnote {https://blockworks.co/ethereum-whales-gobble-70-of-eth/}. The name 'whale' refers to the fact that these users have a lot of market power within the network and are able to push the market up or down. A whale is not necessarily an individual, the term could also refer an institution or organization that holds a significant amount of cryptocurrencies within the network \cite{ma}.
 
 
 \subsection{The network}
 The Ethereum network has seen tremendous growth since its inception in 2015, and contains over 350 million transactions at the time of writing. Since June 2020, the number of daily transactions exceeds 1 million \footnote{https://etherscan.io/chart/tx}. Over 100 million addresses have been registered, and over 600 thousand addresses take part in transactions every day \footnote{https://bitinfocharts.com/comparison/ethereum-activeaddresses.html}. This means a full analysis is generally not feasible.
 
 \section{Related Work}
-It has to be said: the literature around graph analysis of the Ethereum network is quite young but strongly emerging. Guo et al. (2019) \cite{GUO201958} were one of the first to address the properties of this network. They investigated the ETH network in the initial phase and in a more developed phase. They found out that several transaction features, such as the transaction volume, transaction relation, and component structure of the graph, exhibit the same heavy-tail property which can be approximated statistically by the power law function. Our work gives a more complete overview of the \textit{evolution} of the network, because we analyze it at six stages instead of just two.\\
-Chen et al. (2020) \cite{chenEthereum} performed a graph analysis on the Ethereum network. They focus on the characteristics of its users, smart contracts, and the relationships among them to get a deeper understanding of the network. Money transfers, smart contract creations and smart contract invocations are central within their work. These three elements are vital for the users to send money, to create smart contracts on Ethereum, and for the users or applications to invoke the created smart contracts. In this work, metrics like degree distribution, degree centrality, Pearson coefficient, clustering coefficient and PageRank are used and is therefore a good benchmark for this work.\\
-Victor \& Lüders (2019) \cite{inbook} focus on the trade of tokens on the Ethereum network, more specifically called ERC-20 token networks. These tokens can be seen as digital assets, built on top of ETH and strengthen the Ethereum ecosystem by driving demand for ETH, needed to power the smart contracts. They provide an overview of 64 000 ERC20 token networks and focus graphically on the top 1 000. In this work, they observe that the token networks are frequently dominated by a single hub and spoke pattern, supplemented with very small clustering coefficients. The token network looks disassortative and a lot of the network activity is directed towards exchanges whereby many owners never transfer their tokens at all. As ERC-20 tokens can be considered a smart contract, we will not spend much time investigating this aspect, but they are an indispensable part of the Ethereum ecosystem.
+It has to be said: the literature around graph analysis of the Ethereum network is quite young but strongly emerging. Guo et al. (2019) \cite{GUO201958} were one of the first to address the properties of this network, by investigating it in the initial phase and in a more developed phase. They found out that several transaction features, such as the transaction volume, transaction relation, and component structure of the graph, exhibit the same heavy-tail property which can be approximated statistically by the power law function. Our work gives a more complete overview of the \textit{evolution} of the network, because we analyze it at six stages instead of just two.\\
+Chen et al. (2020) \cite{chenEthereum} performed a graph analysis on the Ethereum network. They focus on the characteristics of its users, smart contracts, and the relationships among them to get a deeper understanding of the network. Money transfers, smart contract creations and smart contract invocations are central within their work. In this work, metrics like degree distribution, degree centrality, Pearson coefficient, clustering coefficient and PageRank are used, which makes it a good benchmark for this work.\\
+Victor \& Lüders (2019) \cite{inbook} focus on the trade of tokens on the Ethereum network, more specifically called ERC-20 token networks. These tokens can be seen as digital assets, built on top of ETH. These tokens strengthen the Ethereum ecosystem by driving demand for ETH, needed to power the smart contracts. They provide an overview of 64 000 ERC20 token networks and focus graphically on the top 1 000. In this work, they observe that the token networks are frequently dominated by a single hub and spoke pattern, supplemented with very small clustering coefficients. The token network looks disassortative and a lot of the network activity is directed towards exchanges whereby many owners never transfer their tokens at all. As ERC-20 tokens can be considered a smart contract, we will not spend much time investigating this aspect, but they are an indispensable part of the Ethereum ecosystem. Interestingly, we observe many identical properties when looking at the Ethereum network.
 
 
 \section{Data collection}
-Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create six separate snapshots: each snapshot spans 1 month and is limited to 1 million transactions.
+Given the size of the Ethereum network, we have to resort to sampling techniques. One type of sampling uses \textit{random walks}, that start at a given point and follow edges while collecting the necessary data. Random walks are particularly useful for networks where it is not possible to delimit a part of the network in advance \cite{Becchetti06acomparison}. Ethereum is such a network: addresses are not ordered or structured in any way. We collect transactions using a Breadth-first search (BFS). To analyze the evolution of the network, we create six separate snapshots: each snapshot spans 1 month and is limited to 1 million transactions. We describe our data collection method in pseudocode:
 
 \medskip
 \begin{algorithm}[H]
@@ -94,9 +95,10 @@ Initialize \texttt{Queue} with 100 known addresses
 \end{algorithm}
 
 Although transactions contain many more features, only the columns \texttt{from}, \texttt{to}, and \texttt{value} are used.
-Each snapshot can then be considered a graph: nodes are addresses and edges are transactions between addresses. The value of the transaction is the weight of the edge. If multiple transactions occur between the same pair of addresses, the sum of their according values is taken. 
+Each snapshot can then be considered a graph: nodes are addresses and edges are transactions between addresses. The value of the transaction is the weight of the edge. If multiple transactions occur between the same pair of addresses, the sum of their values is taken. 
 
 The following table shows the size of each snapshot:\\
+\begin{minipage}{\textwidth}
 \vspace{5pt}
 \bgroup
 \def\arraystretch{1.5}
@@ -111,7 +113,9 @@ May 20 & 1 003 812 & 474 030 & 580 773 \\
 Mar '21 & 1 001 864 & 566 733 & 701 482 \\
 \end{tabular}
 \egroup
+\end{minipage}
 
+\vspace{5pt}
 To account for seasonal effects, the time between two snapshots is always 10 months. We also don't consider the state of the network before January 2017, when it was still relatively new and the number of transactions was low.
 
 \section{Analysis of the Ethereum network}
@@ -120,9 +124,8 @@ In this section, we look at some global characteristics of the Ethereum network.
 First of all, it appears that the average degree of the first snapshot in Jan'17 is high, 4.602, whereas in the following snapshots this number is significantly lower and lies within the range of 2.398 and 2.476. We suspect the smaller size and consequentially larger influence of the starting addresses cause this larger average degree in 2017.
 
 Figure \ref{tbl-degreedistributions} shows the degree distribution for each snapshot. The distribution appears to follow a power law at first (estimated $k^{-2.1}$), but as the degree increases, the distribution is more or less uniform. In particular nodes with a degree above 5000 would be very rare in a perfect scale-free network, but we observe them often. It is noteworthy that Guo et al. \cite{GUO201958} find a power law distribution with an exponent of $k = 3.23$, whereas we find $k=2.1$. We suspect this difference can be explained by our data collection method, which favours nodes with a high degree (i.e. transactions with many other nodes).
-\end{multicols}
 
-\begin{figure}[h]
+\begin{figure*}[!ht]
 \centering
 \begin{minipage}[t]{.33\textwidth}
 \includegraphics[scale=0.4]{figures/degree_dist_jan_17.pdf}
@@ -144,9 +147,15 @@ Figure \ref{tbl-degreedistributions} shows the degree distribution for each snap
 \end{minipage}%
 \caption{Degree distribution for all snapshots}
 \label{tbl-degreedistributions}
-\end{figure}
+\end{figure*}
 
-\begin{multicols}{2}
+%\begin{figure*}[h]
+%\includegraphics[scale=0.4]{figures/degree_dist_jan_17.pdf}
+%\includegraphics[scale=0.4]{figures/degree_dist_jan_17.pdf}
+%\includegraphics[scale=0.4]{figures/degree_dist_jan_17.pdf}
+%\end{figure*}
+
+
 Next, we look at the transaction volume in each snapshot. For our network, the transaction volume of a node is simply the sum of all outgoing transactions. Similar to what Guo et al. discovered \cite{GUO201958}, the transaction volume appears to follow a power law.
 
 \begin{Figure}
@@ -188,13 +197,12 @@ Based on these metrics, we can conclude that the Ethereum is not a typical small
 \end{Figure}
 
 \subsection{Whales}
-We now shift our focus to whales. Here we define those as addresses that posses at least 10 000 ETH. Unfortunately, it is not possible to identify whales in the past: finding out the balance of an address at a certain point in times requires backtracking the entire Ethereum blockchain, which is over 4 terabytes large. Therefore, our analysis of whales is limited to the current situation and how the situation changed over time.
+We now shift our focus to whales. Here we define those as addresses that posses at least 10 000 ETH. Unfortunately, it is not possible to identify whales in the past: finding out the balance of an address at a certain point in times requires backtracking the entire Ethereum blockchain, which is over 4 terabytes large. Therefore, our analysis of whales is limited to the current situation.
 
 Currently, 1292 addresses are considered whales. Our most recent snapshot (March 2021) includes transactions from more than 500 000 addresses, of which \textbf{60} are whales. Despite making up less than 0.01\% percent of the network, whales account for a trading volume of more than 25\% (2.33 million out of 9.26 million ETH). Obviously, this imbalance can partially be attributed to the fact that whales have the capacity to trade large amounts, but it strengthens our suspicion that whales are very important traders, and may coincide with hubs.\\
 
 We induce a subgraph by selecting all whales and the edges between them. We can now compare the full network with this subgraph.
 
-\vspace{5pt}
 \bgroup
 \def\arraystretch{1.5}
 \begin{tabular}{p{0.2\textwidth}|p{0.12\textwidth}|p{0.07\textwidth}}
@@ -257,13 +265,13 @@ In this section, we visualize the snapshots to see whether the characteristics m
 Gephi was used to visualize the network, mainly for its flexibility and representational power. 
 However, Gephi's limitations became apparent when visualizing the network: the size of the snapshots was too large to be workable. That is why only a part of the network is used in the visualizations. 
 
-Figure 9 shows the network in January 2017 with 39 281 nodes and 50 154 edges. Figure 10 is a representation of July 2021 with 49 125 nodes and 50 034 edges. The used layout algorithm is OpenOrd\cite{martin2011openord} because of its ability to distinguish clusters in a convenient way and ability to work with large networks. In the second step, the Yifan Hu layout was used on the OpenOrd graph representation. This is a very fast algorithm with good empirical results on large graphs. It combines a force-directed model with a graph coarsening technique to reduce the complexity. The combination of these two gave actually a very clear representation of the network\footnote{https://gephi.org/users/tutorial-layouts/}.
+Figure 9 shows the network in January 2017 with 39 281 nodes and 50 154 edges. Figure 10 is a representation of July 2021 with 49 125 nodes and 50 034 edges. The used layout algorithm is OpenOrd \cite{martin2011openord} because of its ability to distinguish clusters in a convenient way and ability to work with large networks. In the second step, the Yifan Hu layout was used on the OpenOrd graph representation. This is a very fast algorithm with good empirical results on large graphs. It combines a force-directed model with a graph coarsening technique to reduce the complexity. The combination of these two gave actually a very clear representation of the network.
 
 The colors of the graph are the main clusters which are obtained from the Leiden algorithm. To keep the figure simple, only the largest seven clusters are shown. These seven clusters contain about 70\% of the nodes. 
 
 \begin{Figure}
 \centering
-\includegraphics[scale=0.42]{figures/Jan_17_edges.png}
+\includegraphics[scale=0.385]{figures/Jan_17_edges.png}
 \label{clusters}
 \captionof{figure}{Visualization of the ETH network in January 2017.}
 \end{Figure}
@@ -271,26 +279,24 @@ The colors of the graph are the main clusters which are obtained from the Leiden
 \begin{Figure}
 \centering
 \label{fig:my_label}
-\includegraphics[scale=0.45]{figures/Marc21_edges.png}
+\includegraphics[scale=0.385]{figures/Marc21_edges.png}
 \label{clusters}
 \captionof{figure}{Visualization of the ETH network in March 2021.}
 \end{Figure}
 
-
-
 \section{Validity, reliability \& scalability}
 
-In this section validity, reliability and scalability will be used to evaluate the performance of the graph analysis. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability tries to investigate to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and is concerced with space and/or time complexity of the methods used. 
+In this section the validity, reliability and scalability of our analysis will be discussed. Validity refers to the fact to which extent our analysis accurately represents the real world. Reliability tries to investigate to which extent the results and conclusions remain consistent when different methods are used. The third criteria evaluates to which extent the proposed metrics can cope with the fact that real world networks can be huge in size and is concerced with space and/or time complexity of the methods used. 
 
 \begin{itemize}
 \item{\textbf{Validity:} when constructing the network, we had to make some compromises to get a dataset of managable size. First of all, we limited ourselves to a graph of 1 million nodes: the full network is probably structured slightly differently than the subnetwork we analyzed. To generate a trustworthy sample, a BFS algorithm was used, but the addresses used to initialize search queue may affect the validity of the network. The size of the snapshots should compensate for this to some extent.}
-\item{\textbf{Reliability:} for each method, we compared the results of several algorithms and metrics: we looked at degree distribution and transaction volumes, investigated the small-world characteristics using transitivity and average path length, and compared whales using geosedic path length, transitivy and diameter. Furthermore, we also used visualizations to confirm some properties about whales. To detect clusters, we compared three algorithms. In each case, we saw that different metrics and methods confirm our intuitions. Finally, wherever possible, we analyzed the network at 6 different points in time, adding another dimension to our insights.}
-\item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. Therefore, most metrics and methods used have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
+\item{\textbf{Reliability:} for each method, we compared the results of several algorithms and metrics: we looked at degree distribution and transaction volumes, investigated the small-world characteristics using transitivity and average path length, and compared whales using geodesic path length, transitivity and diameter. Furthermore, we also used visualizations to confirm some properties about whales. To detect clusters, we compared three algorithms. In each case, we saw that different metrics and methods confirm our intuitions. Finally, wherever possible, we analyzed the network at 6 different points in time, adding another dimension to our insights.}
+\item{\textbf{Scalability:} due to the size of our networks, scalability has already been an important issue during our analysis. First of all, our data collection will not scale well, because the Etherscan API severly limits the number of requests per second. It is however possible to sync a personal node to the netwerk, and query locally. Because we used a fairly large network, most metrics and methods used have excellent time complexities. We summarize these in the table below. Assume $V$ is the number of nodes, $E$ is the number of edges, and $d$ is the average node degree.
 
 \vspace{5pt}
 \bgroup
 \def\arraystretch{1.5}
-\begin{tabular}{p{0.2\textwidth}|p{0.12\textwidth}}
+\begin{tabular}{p{0.2\textwidth}|p{0.14\textwidth}}
 Degree distribution & $O(V)$ \\ \hline
 Transitivity & $O(V \times d^2)$ \\ \hline
 Shortest path length & $O(V^2 \times E)$ \\ \hline
@@ -298,7 +304,7 @@ Diameter & $O(V \times E)$ \\ \hline
 Louvain & "near linear" \\ \hline
 Leiden & "near linear" \\ \hline
 Leading eigenvector & $O(E+V^2)$ \\ \hline
-OpenOrd Layout & $O(N) \times log(N)$ \\
+OpenOrd Layout & $O(N) \times log(N)$ \\ \hline
 Yifan Hu & $O(N) \times log(N)$ \\
 
 \hline
@@ -311,7 +317,7 @@ All complexities can be found in the igraph reference manual \cite{igraph} and t
 \section{Conclusion}
 
 In this work, the money flow of Ethereum was examined using tools from graph analysis.  
-One of the first findings is that  transaction  volumes  have  not changed  much  over  time, except for 2017, where the volumes were a bit higher. A second point of interest in the analysis was the small-world characteristics: we obtained a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. Furthermore, we looked at whales and concluded that they form a more connected backbone to the Ethereum network with many high-volume trades. 
+One of the first findings is that  transaction  volumes  have  not changed  much  over  time, except for 2017, where the volumes were a bit higher. A second point of interest in the analysis was the small-world characteristic: we obtained a very low clustering coefficient within the network, but on the other hand the average geodesic path length did show signs of a small-world network. Furthermore, we looked at whales and concluded that they form a more connected backbone to the Ethereum network with many high-volume trades. 
 
 \end{multicols}
 \bibliographystyle{plain}
